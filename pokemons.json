@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Bulbasaur",
+    "type": [
+      "Leaf",
+      "Posion"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Ivysaur",
+    "type": [
+      "Leaf",
+      "Posion"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Venusaur",
+    "type": [
+      "Leaf",
+      "Posion"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Charmander",
+    "type": "Fire"
+  },
+  {
+    "id": 5,
+    "name": "Charmeleon",
+    "type": "Fire"
+  },
+  {
+    "id": 6,
+    "name": "Charizard",
+    "type": [
+      "Fire",
+      "Flying"
+    ]
+  }
+]

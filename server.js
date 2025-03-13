@@ -1,12 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = 3000;
+const dataFilePath = path.join(__dirname, 'pokemons.json');
 
 app.use(bodyParser.json());
 
 let pokemons = [];
+
+// Load existing data from the JSON file
+if (fs.existsSync(dataFilePath)) {
+    const data = fs.readFileSync(dataFilePath);
+    pokemons = JSON.parse(data);
+}
 
 // Add a route to handle the root URL
 app.get('/', (req, res) => {
@@ -36,6 +45,7 @@ app.post('/pokemons', (req, res) => {
         type: req.body.type
     };
     pokemons.push(newPokemon);
+    fs.writeFileSync(dataFilePath, JSON.stringify(pokemons, null, 2)); // Save to file
     res.status(201).json(newPokemon);
 });
 
@@ -45,6 +55,7 @@ app.put('/pokemons/:id', (req, res) => {
     if (pokemon) {
         pokemon.name = req.body.name;
         pokemon.type = req.body.type;
+        fs.writeFileSync(dataFilePath, JSON.stringify(pokemons, null, 2)); // Save to file
         res.json(pokemon);
     } else {
         res.status(404).send('Pokemon not found');
@@ -56,6 +67,7 @@ app.delete('/pokemons/:id', (req, res) => {
     const pokemonIndex = pokemons.findIndex(p => p.id === parseInt(req.params.id));
     if (pokemonIndex !== -1) {
         pokemons.splice(pokemonIndex, 1);
+        fs.writeFileSync(dataFilePath, JSON.stringify(pokemons, null, 2)); // Save to file
         res.status(204).send();
     } else {
         res.status(404).send('Pokemon not found');
